@@ -14,6 +14,12 @@ app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+const db = require("./app/models");
+db.sequelize.sync({ force: true })
+    .then(() => {
+        console.log("Drop and resync db")
+    });
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
