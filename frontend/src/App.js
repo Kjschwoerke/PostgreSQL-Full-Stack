@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import './App.css';
+import { TutorialsComponent } from './components/tutorialComponent.js' 
 
 const App = () => {
-  const [user, setUser] = useState({});
+  const [tutorials, setTutorials] = useState([]);
 
   const getData = async (url) => {
    return fetch (url)
@@ -18,16 +18,15 @@ const App = () => {
   }
 
   useEffect(() => {
-   getData('http://localhost:5000/users/userdata')
+   getData('http://localhost:5000/api/tutorials')
     //remove the .then function if not returning promise in getData()
-    .then(res => setUser(res))
+    .then(res => setTutorials(res))
   }, [])
 
   return (
     <div className="App">
      <h1>Data from Backend</h1>
-     <p>The user information for: <span style={{fontWeight: 700}}>{user.first_name} {user.last_name}</span>, is from the backend.</p>
-     <p>They are <span style={{fontWeight: 700}}>{user.age}</span> years old.</p>
+      <TutorialsComponent tutorials={tutorials} />
     </div>
   );
 }
